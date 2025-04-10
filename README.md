@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+Laboratory Management Application
+Overview
+This React application provides a comprehensive solution for managing laboratories, devices, schedules, users, and tests. It connects to the OpenLaboratory API (https://api.openlaboratory.fi/api) to handle data storage and retrieval.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Key Features
+User Authentication: Login and registration functionality with token-based authentication
+Dashboard: Overview of key metrics and quick access to main features
+Laboratory Management: Create, view, edit, and delete laboratories
+Device Management: Manage devices within laboratories with detailed information
+Scheduling System: Calendar-based scheduling for laboratory access
+User Management: Manage user accounts with role-based permissions
+Testing System: Create and manage tests with questions and multiple-choice answers
+Responsive Design: Works on desktop and mobile devices
+Project Structure
+The application follows a modular architecture with separate components for each feature:
 
-## Available Scripts
+API Layer: Axios-based services for communication with the backend
+Context: Global state management for authentication
+Components: Reusable UI components organized by feature
+Pages: Main application views that combine components
+Utilities: Helper functions for dates, formatting, etc.
+Technical Stack
+React: Frontend library for building the user interface
+React Router: For navigation and routing
+Axios: HTTP client for API requests
+Tailwind CSS: Utility-first CSS framework for styling
+Context API: For state management
+Getting Started
+Clone the repository
+Install dependencies with npm install
+Configure environment variables if needed
+Start the development server with npm start
+API Integration
+The application integrates with the OpenLaboratory API which provides endpoints for:
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+User authentication
+Lab management
+Device tracking
+Scheduling
+Test and question management
+Key Workflows
+Laboratory Management
+View all laboratories
+Create new laboratories
+Edit laboratory details
+View devices within a laboratory
+Add safety guidelines
+Device Management
+View all devices
+Create new devices
+Assign devices to laboratories
+Add device documentation and pictures
+Scheduling
+View calendar of lab schedules
+Book time slots for lab access
+Manage existing bookings
+User Management
+Register new users
+Manage user accounts
+View user test results and schedules
+Testing System
+Create tests with multiple-choice questions
+Assign tests to users
+Track test results and completions
+Future Enhancements
+Advanced reporting and analytics
+Equipment maintenance tracking
+Integration with inventory systems
+Mobile application support
+Real-time notifications
