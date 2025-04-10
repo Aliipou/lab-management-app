@@ -1,4 +1,4 @@
-// src/api/api.js
+// Base API configuration
 import axios from "axios";
 
 // Create axios instance with base configuration
@@ -41,6 +41,19 @@ export const handleApiError = (error) => {
     error.response?.data?.message || error.message || "Something went wrong";
   console.error("API Error:", message);
   return message;
+};
+
+// For the demo, instead of real API calls, we can use mock functions
+export const mockApiCall = (data, delay = 500, shouldFail = false) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (shouldFail) {
+        reject(new Error("API call failed"));
+      } else {
+        resolve({ data });
+      }
+    }, delay);
+  });
 };
 
 export default api;

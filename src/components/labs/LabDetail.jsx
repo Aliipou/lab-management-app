@@ -4,7 +4,11 @@ import { formatDate } from "../../utils/dateUtils";
 
 const LabDetail = ({ lab, safetyGuidance, pictures, devices, loading }) => {
   if (loading) {
-    return <div className="text-center py-10">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center py-8">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
   }
 
   if (!lab) {
@@ -44,6 +48,18 @@ const LabDetail = ({ lab, safetyGuidance, pictures, devices, loading }) => {
             </h3>
             <p className="text-gray-600">{lab.description}</p>
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h3 className="text-sm font-medium text-gray-500">Created</h3>
+              <p className="mt-1">{formatDate(lab.createdAt)}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-gray-500">
+                Last Updated
+              </h3>
+              <p className="mt-1">{formatDate(lab.updatedAt)}</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -61,6 +77,9 @@ const LabDetail = ({ lab, safetyGuidance, pictures, devices, loading }) => {
                   alt={`Lab ${lab.name}`}
                   className="w-full h-48 object-cover"
                 />
+                <p className="text-sm text-gray-500 mt-1">
+                  {picture.description}
+                </p>
               </div>
             ))}
           </div>
@@ -103,7 +122,26 @@ const LabDetail = ({ lab, safetyGuidance, pictures, devices, loading }) => {
               <div key={device.deviceId} className="border rounded-md p-4">
                 <h3 className="font-medium text-gray-900">{device.name}</h3>
                 <p className="text-sm text-gray-500">Model: {device.model}</p>
-                <div className="mt-2">
+                <div className="flex justify-between items-center mt-2">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      device.status === "available"
+                        ? "bg-green-100 text-green-800"
+                        : device.status === "maintenance"
+                        ? "bg-yellow-100 text-yellow-800"
+                        : device.status === "in-use"
+                        ? "bg-blue-100 text-blue-800"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {device.status === "available"
+                      ? "Available"
+                      : device.status === "maintenance"
+                      ? "Under Maintenance"
+                      : device.status === "in-use"
+                      ? "In Use"
+                      : device.status}
+                  </span>
                   <Link
                     to={`/devices/${device.deviceId}`}
                     className="text-blue-600 hover:text-blue-800 text-sm"

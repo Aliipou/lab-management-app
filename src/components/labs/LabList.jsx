@@ -17,14 +17,14 @@ const LabList = ({ labs, onDelete }) => {
       {labs.map((lab) => (
         <div
           key={lab.labId}
-          className="bg-white rounded-lg shadow-md overflow-hidden h-full"
+          className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col"
         >
-          <div className="p-6">
+          <div className="p-6 flex-grow">
             <h2 className="text-xl font-semibold mb-2">{lab.name}</h2>
-            <p className="text-gray-600 mb-4 h-20 overflow-hidden">
-              {lab.description}
-            </p>
-            <div className="flex justify-between mt-auto pt-4">
+            <p className="text-gray-600 mb-4">{lab.description}</p>
+          </div>
+          <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
+            <div className="flex justify-between">
               <Link
                 to={`/labs/${lab.labId}`}
                 className="text-blue-600 hover:text-blue-800"

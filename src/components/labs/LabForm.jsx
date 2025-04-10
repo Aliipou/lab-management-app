@@ -27,7 +27,11 @@ const LabForm = ({ lab, onSubmit, loading, error }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    // Add labId if editing an existing lab
+    const submitData = lab ? { ...formData, labId: lab.labId } : formData;
+
+    onSubmit(submitData);
   };
 
   return (
