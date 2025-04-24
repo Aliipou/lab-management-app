@@ -1,6 +1,6 @@
 import api, { handleApiError, mockApiCall } from "./api";
 
-// Toggle between real API and mock
+// Always use mock API for demo purposes
 const USE_MOCK_API = true;
 
 const mockLabs = [
@@ -40,6 +40,7 @@ export const labApi = {
       const response = await api.get("/Lab/GetAllLabs");
       return response.data;
     } catch (error) {
+      console.error("Failed to get labs:", error);
       throw handleApiError(error);
     }
   },
@@ -55,6 +56,7 @@ export const labApi = {
       const response = await api.get(`/Lab/GetLabById/${labId}`);
       return response.data;
     } catch (error) {
+      console.error(`Failed to get lab ${labId}:`, error);
       throw handleApiError(error);
     }
   },
@@ -64,7 +66,7 @@ export const labApi = {
       if (USE_MOCK_API) {
         const newLab = {
           ...labData,
-          labId: String(mockLabs.length + 1),
+          labId: String(Date.now()),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         };
@@ -75,6 +77,7 @@ export const labApi = {
       const response = await api.post("/Lab/CreateLab", payload);
       return response.data;
     } catch (error) {
+      console.error("Failed to create lab:", error);
       throw handleApiError(error);
     }
   },
@@ -82,7 +85,10 @@ export const labApi = {
   updateLab: async (labData) => {
     try {
       if (USE_MOCK_API) {
-        const updatedLab = { ...labData, updatedAt: new Date().toISOString() };
+        const updatedLab = {
+          ...labData,
+          updatedAt: new Date().toISOString(),
+        };
         const response = await mockApiCall(updatedLab);
         return response.data;
       }
@@ -90,6 +96,7 @@ export const labApi = {
       const response = await api.put("/Lab/UpdateLab", payload);
       return response.data;
     } catch (error) {
+      console.error(`Failed to update lab ${labData.labId}:`, error);
       throw handleApiError(error);
     }
   },
@@ -104,6 +111,7 @@ export const labApi = {
       const response = await api.delete("/Lab/DeleteLab", { data: payload });
       return response.data;
     } catch (error) {
+      console.error(`Failed to delete lab ${labId}:`, error);
       throw handleApiError(error);
     }
   },
@@ -137,6 +145,7 @@ export const labApi = {
       );
       return response.data;
     } catch (error) {
+      console.error(`Failed to get pictures for lab ${labId}:`, error);
       throw handleApiError(error);
     }
   },
@@ -170,6 +179,7 @@ export const labApi = {
       );
       return response.data;
     } catch (error) {
+      console.error(`Failed to get safety guidance for lab ${labId}:`, error);
       throw handleApiError(error);
     }
   },

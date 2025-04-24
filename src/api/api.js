@@ -42,7 +42,7 @@ export const handleApiError = (error) => {
   return message;
 };
 
-// For the demo, instead of real API calls, we can use mock functions
+// For the demo, use mock functions
 export const mockApiCall = (data, delay = 500, shouldFail = false) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {

@@ -13,6 +13,11 @@ const LabList = ({ labs, onDelete }) => {
     );
   }
 
+  const handleDelete = (e, labId) => {
+    e.preventDefault(); // Prevent link navigation
+    onDelete(labId);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {labs.map((lab) => (
@@ -43,7 +48,7 @@ const LabList = ({ labs, onDelete }) => {
                   Edit
                 </Link>
                 <button
-                  onClick={() => onDelete(lab.labId)}
+                  onClick={(e) => handleDelete(e, lab.labId)}
                   className="text-red-600 hover:text-red-800"
                 >
                   Delete

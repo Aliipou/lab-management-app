@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import { userApi } from "../api/userApi";
 
+// Make sure to export the context
 export const AuthContext = createContext();
 
 const initialState = {
@@ -64,22 +65,21 @@ export const AuthProvider = ({ children }) => {
       try {
         // For demo purposes, simulate getting user info
         // In a real app, you would call something like userApi.getCurrentUser()
-        // Using a timeout to simulate an API call
-        setTimeout(() => {
-          const user = {
-            userId: "1",
-            firstname: "Admin",
-            lastname: "User",
-            email: "admin@example.com",
-            role: "admin",
-          };
+        // Using fake user data since this is just a demo
+        const user = {
+          userId: "1",
+          firstname: "Admin",
+          lastname: "User",
+          email: "admin@example.com",
+          role: "admin",
+        };
 
-          dispatch({
-            type: "LOGIN_SUCCESS",
-            payload: { user, token },
-          });
-        }, 500);
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: { user, token },
+        });
       } catch (err) {
+        console.error("Auth error:", err);
         dispatch({
           type: "AUTH_ERROR",
           payload: "Authentication failed",
@@ -96,15 +96,29 @@ export const AuthProvider = ({ children }) => {
 
     try {
       // In a real app, this would call the API
-      const response = await userApi.login({ email, password });
+      // For demo purposes, accept any credentials and return mock data
+      // const response = await userApi.login({ email, password });
+
+      // Mock successful login response
+      const mockResponse = {
+        user: {
+          userId: "1",
+          firstname: "Admin",
+          lastname: "User",
+          email: email,
+          role: "admin",
+        },
+        token: "mock-jwt-token-for-demo",
+      };
 
       dispatch({
         type: "LOGIN_SUCCESS",
-        payload: response,
+        payload: mockResponse,
       });
 
-      return response.user;
+      return mockResponse.user;
     } catch (err) {
+      console.error("Login error:", err);
       dispatch({
         type: "LOGIN_FAIL",
         payload: err.message || "Login failed",

@@ -1,3 +1,4 @@
+// Format a date string to a more readable format
 export const formatDate = (dateString) => {
   if (!dateString) return "";
 
@@ -9,6 +10,7 @@ export const formatDate = (dateString) => {
   });
 };
 
+// Format a date string to include time
 export const formatDateTime = (dateString) => {
   if (!dateString) return "";
 
@@ -22,6 +24,7 @@ export const formatDateTime = (dateString) => {
   });
 };
 
+// Format a date string to show only time
 export const formatTime = (dateString) => {
   if (!dateString) return "";
 
@@ -32,6 +35,7 @@ export const formatTime = (dateString) => {
   });
 };
 
+// Get current date and time in ISO format
 export const getCurrentDateTime = () => {
   return new Date().toISOString();
 };

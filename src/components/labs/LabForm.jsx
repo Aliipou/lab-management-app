@@ -26,7 +26,7 @@ const LabForm = ({ lab, onSubmit, loading, error }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // این خط اضافه شده
+    e.preventDefault();
 
     // Add labId if editing an existing lab
     const submitData = lab ? { ...formData, labId: lab.labId } : formData;
@@ -95,7 +95,7 @@ const LabForm = ({ lab, onSubmit, loading, error }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded disabled:opacity-50"
             >
               {loading ? "Saving..." : lab ? "Update Lab" : "Create Lab"}
             </button>

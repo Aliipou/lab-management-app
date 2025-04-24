@@ -12,6 +12,11 @@ const DeviceList = ({ devices, onDelete }) => {
     );
   }
 
+  const handleDelete = (e, deviceId) => {
+    e.preventDefault(); // Prevent navigation
+    onDelete(deviceId);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {devices.map((device) => (
@@ -40,7 +45,7 @@ const DeviceList = ({ devices, onDelete }) => {
                   Edit
                 </Link>
                 <button
-                  onClick={() => onDelete(device.deviceId)}
+                  onClick={(e) => handleDelete(e, device.deviceId)}
                   className="text-red-600 hover:text-red-800"
                 >
                   Delete
