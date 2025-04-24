@@ -96,6 +96,8 @@ const LabsPage = () => {
   const handleSubmitLab = async (formData) => {
     setLoading(true);
     try {
+      console.log("Submitting lab data:", formData);
+
       if (formData.labId) {
         // Update existing lab
         await labApi.updateLab(formData);

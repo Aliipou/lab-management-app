@@ -51,8 +51,22 @@ const QuestionForm = ({
     }));
   };
 
+  const handleOptionChange = (index, field, value) => {
+    setFormData((prev) => {
+      const updatedOptions = [...prev.answerOptions];
+      updatedOptions[index] = {
+        ...updatedOptions[index],
+        [field]: field === "isCorrect" ? value === "true" : value,
+      };
+      return {
+        ...prev,
+        answerOptions: updatedOptions,
+      };
+    });
+  };
+
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // این خط اضافه شده
 
     // Validate that at least one option is marked as correct
     const hasCorrectOption = formData.answerOptions.some(
@@ -115,7 +129,59 @@ const QuestionForm = ({
             ></textarea>
           </div>
 
-          {/* Rest of your form code */}
+          <div className="mt-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Answer Options *
+            </label>
+            <p className="text-sm text-gray-500 mb-2">
+              Mark at least one option as correct.
+            </p>
+
+            {formData.answerOptions.map((option, index) => (
+              <div key={index} className="flex items-center space-x-2 mb-2">
+                <select
+                  value={option.isCorrect.toString()}
+                  onChange={(e) =>
+                    handleOptionChange(index, "isCorrect", e.target.value)
+                  }
+                  className="border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                >
+                  <option value="false">Incorrect</option>
+                  <option value="true">Correct</option>
+                </select>
+                <input
+                  type="text"
+                  placeholder={`Option ${index + 1}`}
+                  value={option.content}
+                  onChange={(e) =>
+                    handleOptionChange(index, "content", e.target.value)
+                  }
+                  className="flex-1 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-end space-x-3 pt-4">
+            <button
+              type="button"
+              onClick={onCancel || (() => navigate(`/tests/${testId}`))}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+            >
+              {loading
+                ? "Saving..."
+                : question
+                ? "Update Question"
+                : "Add Question"}
+            </button>
+          </div>
         </div>
       </form>
     </div>

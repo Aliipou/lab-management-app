@@ -19,7 +19,7 @@ const LoginPage = ({ onLogin }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // این خط اضافه شده
     setError("");
     setLoading(true);
 
@@ -115,12 +115,12 @@ const LoginPage = ({ onLogin }) => {
             </div>
 
             <div className="text-sm">
-              <a
-                href="#"
+              <button
+                type="button"
                 className="font-medium text-blue-600 hover:text-blue-500"
               >
                 Forgot your password?
-              </a>
+              </button>
             </div>
           </div>
 

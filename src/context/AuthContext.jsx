@@ -13,7 +13,7 @@ const initialState = {
 const authReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN_SUCCESS":
-      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("auth_token", action.payload.token);
       return {
         ...state,
         user: action.payload.user,
@@ -24,7 +24,7 @@ const authReducer = (state, action) => {
     case "AUTH_ERROR":
     case "LOGIN_FAIL":
     case "LOGOUT":
-      localStorage.removeItem("token");
+      localStorage.removeItem("auth_token");
       return {
         ...state,
         user: null,
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const loadUser = async () => {
       // Check if token exists in localStorage
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("auth_token");
 
       if (!token) {
         dispatch({ type: "AUTH_ERROR" });
@@ -96,29 +96,14 @@ export const AuthProvider = ({ children }) => {
 
     try {
       // In a real app, this would call the API
-      // const response = await userApi.login({ email, password });
+      const response = await userApi.login({ email, password });
 
-      // For demo purposes, we'll simulate a login with hardcoded credentials
-      if (email === "admin@example.com" && password === "password") {
-        const user = {
-          userId: "1",
-          firstname: "Admin",
-          lastname: "User",
-          email: "admin@example.com",
-          role: "admin",
-        };
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: response,
+      });
 
-        const token = "demo-token-12345";
-
-        dispatch({
-          type: "LOGIN_SUCCESS",
-          payload: { user, token },
-        });
-
-        return user;
-      } else {
-        throw new Error("Invalid credentials");
-      }
+      return response.user;
     } catch (err) {
       dispatch({
         type: "LOGIN_FAIL",

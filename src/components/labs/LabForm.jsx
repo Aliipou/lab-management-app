@@ -26,7 +26,7 @@ const LabForm = ({ lab, onSubmit, loading, error }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // این خط اضافه شده
 
     // Add labId if editing an existing lab
     const submitData = lab ? { ...formData, labId: lab.labId } : formData;

@@ -3,8 +3,7 @@ import axios from "axios";
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL:
-    process.env.REACT_APP_API_URL || "https://api.openlaboratory.fi/api/",
+  baseURL: process.env.REACT_APP_API_URL || "https://api.openlaboratory.fi/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,7 +12,7 @@ const api = axios.create({
 // Request interceptor for adding auth token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("auth_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,7 +27,7 @@ api.interceptors.response.use(
   (error) => {
     // Handle 401 Unauthorized errors
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("auth_token");
       window.location.href = "/login";
     }
     return Promise.reject(error);

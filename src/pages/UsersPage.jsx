@@ -77,6 +77,7 @@ const UsersPage = () => {
       )
     ) {
       try {
+        console.log("Deleting user with ID:", userId);
         await userApi.deleteUser(userId);
         setUsers(users.filter((user) => user.userId !== userId));
         navigate("/users");
@@ -90,6 +91,8 @@ const UsersPage = () => {
   const handleSubmitUser = async (formData) => {
     setLoading(true);
     try {
+      console.log("Submitting user data:", formData);
+
       if (selectedUser) {
         // Update existing user
         await userApi.updateUser({

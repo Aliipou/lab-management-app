@@ -26,7 +26,7 @@ const TestForm = ({ test, onSubmit, loading, error }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // این خط اضافه شده
 
     // Add timestamps if creating a new test
     const testData = { ...formData };

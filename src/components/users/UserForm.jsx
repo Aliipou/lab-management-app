@@ -34,7 +34,7 @@ const UserForm = ({ user, onSubmit, loading, error }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // این خط اضافه شده
 
     // If we're in edit mode and password is empty, don't send password fields
     if (user) {

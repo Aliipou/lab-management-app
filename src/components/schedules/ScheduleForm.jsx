@@ -71,7 +71,7 @@ const ScheduleForm = ({ schedule, onSubmit, loading, error }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // این خط اضافه شده
 
     // Validate that end time is after start time
     if (new Date(formData.endTime) <= new Date(formData.startTime)) {

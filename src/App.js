@@ -81,25 +81,25 @@ const Header = ({ isAuthenticated, onLogout }) => {
 
               {isProfileOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  <button
+                    type="button"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Your Profile
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  </button>
+                  <button
+                    type="button"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Settings
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  </button>
+                  <button
+                    type="button"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={onLogout}
                   >
                     Sign out
-                  </a>
+                  </button>
                 </div>
               )}
             </div>
@@ -208,7 +208,7 @@ const LoginPage = ({ onLogin }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // این خط اضافه شده
 
     if (email && password) {
       onLogin(email, password);
@@ -267,12 +267,12 @@ const LoginPage = ({ onLogin }) => {
                 >
                   Password
                 </label>
-                <a
-                  href="#"
+                <button
+                  type="button"
                   className="text-xs text-blue-600 hover:text-blue-800"
                 >
                   Forgot your password?
-                </a>
+                </button>
               </div>
               <input
                 id="password"
@@ -459,7 +459,7 @@ const Dashboard = () => (
 
         {/* Upcoming Schedules */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
-          <div className="px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-700">
+          <div className="px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-700 border-b">
             <h2 className="text-xl font-bold text-white">Upcoming Schedules</h2>
           </div>
           <div className="p-6">

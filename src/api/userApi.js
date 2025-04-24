@@ -1,6 +1,5 @@
 import api, { handleApiError, mockApiCall } from "./api";
 
-// Mock data for users
 const mockUsers = [
   {
     userId: "1",
@@ -34,30 +33,28 @@ const mockUsers = [
   },
 ];
 
+// Toggle this to true to use mock instead of real API
+const USE_MOCK = false;
+
 export const userApi = {
   login: async (credentials) => {
     try {
-      // For a real app
-      // const response = await api.post("/User/Login", credentials);
-      // return response.data;
-
-      // For demo
-      // Simulating a login response with token
-      if (
-        credentials.email === "admin@example.com" &&
-        credentials.password === "password"
-      ) {
-        const user = mockUsers.find((user) => user.email === credentials.email);
-        const loginResponse = {
+      if (USE_MOCK) {
+        const user = mockUsers.find(
+          (u) =>
+            u.email === credentials.email && credentials.password === "password"
+        );
+        if (!user) throw new Error("Invalid email or password");
+        const response = await mockApiCall({
           user,
           token: "mock-jwt-token-for-demo",
-          expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours from now
-        };
-        const response = await mockApiCall(loginResponse);
+          expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+        });
         return response.data;
-      } else {
-        throw new Error("Invalid email or password");
       }
+
+      const response = await api.post("/User/Login", credentials);
+      return response.data;
     } catch (error) {
       throw handleApiError(error);
     }
@@ -65,12 +62,12 @@ export const userApi = {
 
   getAllUsers: async () => {
     try {
-      // For a real app
-      // const response = await api.get("/User/GetAllUsers");
-      // return response.data;
+      if (USE_MOCK) {
+        const response = await mockApiCall(mockUsers);
+        return response.data;
+      }
 
-      // For demo
-      const response = await mockApiCall(mockUsers);
+      const response = await api.get("/User/GetAllUsers");
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -79,16 +76,14 @@ export const userApi = {
 
   getUserById: async (userId) => {
     try {
-      // For a real app
-      // const response = await api.get(`/User/GetUserById/${userId}`);
-      // return response.data;
-
-      // For demo
-      const user = mockUsers.find((user) => user.userId === userId);
-      if (!user) {
-        throw new Error("User not found");
+      if (USE_MOCK) {
+        const user = mockUsers.find((u) => u.userId === userId);
+        if (!user) throw new Error("User not found");
+        const response = await mockApiCall(user);
+        return response.data;
       }
-      const response = await mockApiCall(user);
+
+      const response = await api.get(`/User/GetUserById/${userId}`);
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -97,16 +92,14 @@ export const userApi = {
 
   getUserByEmail: async (email) => {
     try {
-      // For a real app
-      // const response = await api.get(`/User/GetUserByEmail/${email}`);
-      // return response.data;
-
-      // For demo
-      const user = mockUsers.find((user) => user.email === email);
-      if (!user) {
-        throw new Error("User not found");
+      if (USE_MOCK) {
+        const user = mockUsers.find((u) => u.email === email);
+        if (!user) throw new Error("User not found");
+        const response = await mockApiCall(user);
+        return response.data;
       }
-      const response = await mockApiCall(user);
+
+      const response = await api.get(`/User/GetUserByEmail/${email}`);
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -115,23 +108,22 @@ export const userApi = {
 
   createUser: async (userData) => {
     try {
-      // For a real app
-      // const payload = {
-      //   ...userData,
-      //   commandSender: {},
-      // };
-      // const response = await api.post("/User/CreateUser", payload);
-      // return response.data;
+      if (USE_MOCK) {
+        const newUser = {
+          ...userData,
+          userId: String(mockUsers.length + 1),
+          role: userData.role || "student",
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+        const response = await mockApiCall(newUser);
+        return response.data;
+      }
 
-      // For demo
-      const newUser = {
+      const response = await api.post("/User/CreateUser", {
         ...userData,
-        userId: String(mockUsers.length + 1),
-        role: userData.role || "student",
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      const response = await mockApiCall(newUser);
+        commandSender: {},
+      });
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -140,20 +132,19 @@ export const userApi = {
 
   updateUser: async (userData) => {
     try {
-      // For a real app
-      // const payload = {
-      //   ...userData,
-      //   commandSender: {},
-      // };
-      // const response = await api.put("/User/UpdateUser", payload);
-      // return response.data;
+      if (USE_MOCK) {
+        const updatedUser = {
+          ...userData,
+          updatedAt: new Date().toISOString(),
+        };
+        const response = await mockApiCall(updatedUser);
+        return response.data;
+      }
 
-      // For demo
-      const updatedUser = {
+      const response = await api.put("/User/UpdateUser", {
         ...userData,
-        updatedAt: new Date().toISOString(),
-      };
-      const response = await mockApiCall(updatedUser);
+        commandSender: {},
+      });
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -162,16 +153,17 @@ export const userApi = {
 
   deleteUser: async (userId) => {
     try {
-      // For a real app
-      // const payload = {
-      //   userId,
-      //   commandSender: {},
-      // };
-      // const response = await api.delete("/User/DeleteUser", { data: payload });
-      // return response.data;
+      if (USE_MOCK) {
+        const response = await mockApiCall({ success: true });
+        return response.data;
+      }
 
-      // For demo
-      const response = await mockApiCall({ success: true });
+      const response = await api.delete("/User/DeleteUser", {
+        data: {
+          userId,
+          commandSender: {},
+        },
+      });
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -180,21 +172,23 @@ export const userApi = {
 
   getUserProfilePictures: async (userId) => {
     try {
-      // For a real app
-      // const response = await api.get(`/ProfilePicture/GetProfilePicturesByUserId/${userId}`);
-      // return response.data;
+      if (USE_MOCK) {
+        const pictures = [
+          {
+            pictureId: "1",
+            userId,
+            pictureUrl: "https://via.placeholder.com/150?text=Profile",
+            isDefault: true,
+            uploadedAt: "2024-02-10T14:20:00Z",
+          },
+        ];
+        const response = await mockApiCall(pictures);
+        return response.data;
+      }
 
-      // For demo
-      const pictures = [
-        {
-          pictureId: "1",
-          userId: userId,
-          pictureUrl: "https://via.placeholder.com/150?text=Profile",
-          isDefault: true,
-          uploadedAt: "2024-02-10T14:20:00Z",
-        },
-      ];
-      const response = await mockApiCall(pictures);
+      const response = await api.get(
+        `/ProfilePicture/GetProfilePicturesByUserId/${userId}`
+      );
       return response.data;
     } catch (error) {
       throw handleApiError(error);
